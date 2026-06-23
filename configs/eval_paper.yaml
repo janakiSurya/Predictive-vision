@@ -1,0 +1,17 @@
+dataset:
+  name: NCALTECH101
+  data_dir: ./data
+  cache_dir: ./cache/paper_grade_v3
+  sensor_size: [304, 240, 2]
+  n_time_bins: 10
+  split: [0.7, 0.15, 0.15]
+  split_seed: 2026
+  batch_size: 8
+  eval_batch_size: 8
+  num_workers: 0
+  split_path: null
+
+evaluation:
+  split: test
+  device: auto
+  output_dir: null

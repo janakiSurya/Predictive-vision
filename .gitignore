@@ -6,6 +6,8 @@ __pycache__/
 # Heavy Neuromorphic Cache Data
 data/
 cache/
+experiments/
+paper_outputs/
 
 # OS-specific clutter
 .DS_Store

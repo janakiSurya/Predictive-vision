@@ -1,0 +1,84 @@
+experiment:
+  name: ablation_no_regime_objective
+  output_dir: experiments
+  run_id: null
+  validate_every_epochs: 1
+  save_every_epochs: 1
+  min_data_reduction: 50.0
+
+dataset:
+  name: NCALTECH101
+  data_dir: ./data
+  cache_dir: ./cache/ablation_no_regime_objective
+  sensor_size: [304, 240, 2]
+  n_time_bins: 10
+  split: [0.7, 0.15, 0.15]
+  split_seed: 2026
+  batch_size: 8
+  eval_batch_size: 8
+  num_workers: 0
+
+model:
+  input_channels: 2
+  hidden_channels: 16
+  num_regimes: 4
+  noise_threshold: 2.0
+  error_threshold: 0.2
+  initial_alpha: 0.8
+  use_noise_gate: true
+  use_predictor: true
+  use_plasticity: true
+  use_regime_gate: true
+  hard_regime_gate: false
+
+memory:
+  enabled: true
+  stable_rate: 0.01
+  adaptive_rate: 0.10
+  episodic_size: 64
+  high_surprise_threshold: 0.05
+  low_compressibility_threshold: 0.35
+  update_during_training: true
+
+plasticity:
+  temporal_window: 3
+  conf_weight: 1.0
+  pers_weight: 1.0
+  ctx_weight: 1.0
+  comp_weight: 1.0
+  bias: 2.5
+  scale: 2.0
+  use_compressibility: true
+
+regime_objective:
+  enabled: false
+  weight: 0.0
+  temporal_consistency_weight: 0.0
+  pseudo_labeler:
+    stable_threshold: 0.02
+    coherent_threshold: 0.45
+    anomaly_threshold: 0.12
+    noise_comp_threshold: 0.25
+
+sparse_routing:
+  enabled: true
+  regime_thresholds: [0.45, 0.35, 0.20, 0.60]
+  gate_temperature: 12.0
+
+training:
+  seed: 2026
+  device: auto
+  epochs: 5
+  grad_clip_norm: 5.0
+  learning_rates:
+    pipeline: 0.001
+    baseline: 0.001
+    sparse: 0.001
+  losses:
+    reconstruction_weight: 1.0
+    sparse_classification_weight: 1.0
+    regime_entropy_weight: 0.01
+  scheduler:
+    type: step_lr
+    step_size: 3
+    gamma: 0.5
