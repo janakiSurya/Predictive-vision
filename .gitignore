@@ -1,0 +1,11 @@
+# Environments and compilation artifacts
+venv/
+__pycache__/
+*.pyc
+
+# Heavy Neuromorphic Cache Data
+data/
+cache/
+
+# OS-specific clutter
+.DS_Store
